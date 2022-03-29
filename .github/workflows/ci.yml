@@ -1,0 +1,28 @@
+#This workflow will do a clean install of node dependencies,
+#For more information see:
+
+main: Build
+
+on:
+ push:
+   branches: [ main ]
+
+jobs:
+ build:
+  
+  runs-on: ubuntu-latest
+
+  strategy:
+    matrix:
+      node-version: [10.x]
+      #See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+  steps:
+  - users: action/checkout@v2
+  - name: Use Node.js ${{ matrix.node-version }}
+    uses: actions/setup-node@v1
+    with:
+      node-version: ${{ matrix.node-version }}
+  - run: npm install
+  - run: rpm test
+  
